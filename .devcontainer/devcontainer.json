@@ -1,0 +1,7 @@
+{
+	"name": "Manim Dev Container - Ubuntu 22.04",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "."
+    }
+}
