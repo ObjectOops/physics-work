@@ -1,0 +1,1 @@
+exclude: ['main.py', 'feasibility_test.py', 'Gemfile', 'Gemfile.lock', 'LICENSE', 'README.md']
