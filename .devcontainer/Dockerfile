@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/devcontainers/base:jammy
+# FROM mcr.microsoft.com/devcontainers/base:jammy
+FROM mcr.microsoft.com/devcontainers/jekyll:bullseye
 
 RUN apt update && export DEBIAN_FRONTEND=noninteractive \
     && apt install -y --no-install-recommends \
