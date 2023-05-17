@@ -119,3 +119,38 @@ beyond its natural length""", t2s={'x':ITALIC}).move_to(2 * DOWN))
         self.wait(1)
 
         FadeOutAll(self)
+
+class Example_Work_Gravity(Scene):
+    def construct(self):
+        title     = Text ("Example - Work from Gravity").move_to(3 * UP)
+        self.play(Write(title), runtime=1)
+
+        problem_1 = Text ("""
+How much work is done in lifting a 1.2 kg book off the floor 
+to put it on a desk that is 0.7 m high? 
+The acceleration due to gravity is g = 9.8 (m/s²).""", font_size=24, t2s={'[138:139]':ITALIC})
+        problem_1.next_to(title, 1.5 * DOWN)
+        self.play(Write(problem_1))
+        self.wait(1)
+        eq_1 = r"F=mg=(1.2)(9.8)=11.76 \textrm{N}"
+        eq_2 = r"W=Fd=(11.76)(0.7)\approx8.2 \textrm{J}"
+        solution_1 = MathTex (eq_1).add(MathTex (eq_2).move_to(DOWN))
+        solution_1.next_to(problem_1, DOWN)
+        self.play(Write(solution_1))
+        self.wait(1)
+        sol_1 = MathTex (eq_1 + ", " + eq_2).next_to(problem_1, DOWN)
+        self.play(Transform(solution_1, sol_1))
+
+        problem_2 = Text ("How much work is done in lifting a 20 lb weight 6 ft off the ground?", font_size=24).next_to(sol_1, 2 * DOWN)
+        self.play(Write(problem_2))
+        eq_1 = r"F=20 \textrm{lb}"
+        eq_2 = r"W=(20)(6)=120 \textrm{lb-ft}\approx163.2 \textrm{J}"
+        solution_2 = MathTex (eq_1).add(MathTex (eq_2).move_to(DOWN))
+        solution_2.next_to(problem_2, DOWN)
+        self.play(Write(solution_2))
+        self.wait(1)
+        sol_2 = MathTex (eq_1 + ", " + eq_2).next_to(problem_2, DOWN)
+        self.play(Transform(solution_2, sol_2))
+        self.wait(1)
+
+        FadeOutAll(self)
