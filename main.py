@@ -63,7 +63,7 @@ An influence that causes the motion of an object with mass to change its velocit
         );
         self.remove(arrow, arrow_hide)
 
-        f_ma    = MathTex (r"F=ma=m\frac{d^s}{dt^2}", font_size=128).next_to(definition_up, DOWN)
+        f_ma    = MathTex (r"F=ma=m\frac{d^2s}{dt^2}", font_size=128).next_to(definition_up, DOWN)
         caption = Text ("Force = mass × acceleration").next_to(f_ma, DOWN)
         f_ma.add(caption)
         self.play(Uncreate(box_left, arrow, arrow_hide), Write(f_ma))
@@ -179,38 +179,100 @@ and is always positive.""",
 
         FadeOutAll(self)
 
+example_data = {
+    "gravity":{
+        "title":Text ("Work from Gravity"), 
+        "notes":[
+            MathTex (r"F=ma=m\frac{d^2s}{dt^2}"), 
+            MathTex ("W=Fd")
+        ], 
+        "content":[
+            Text ("""
+How much work is done in lifting a 1.2 kg book off the floor to put it on a desk 
+that is 0.7 m high? The acceleration due to gravity is g = 9.8 (m/s2).""", 
+                t2s={'[138:139]':ITALIC}), 
+            MathTex (r"F=mg=(1.2)(9.8)=11.76 \textrm{N}"), 
+            MathTex (r"W=Fd=(11.76)(0.7)\approx8.2 \textrm{J}"), 
+            Text ("How much work is done in lifting a 20 lb weight 6 ft off the ground?"), 
+            MathTex (r"F=20 \textrm{lb}"), 
+            MathTex (r"W=(20)(6)=120 \textrm{lb-ft}\approx163.2 \textrm{J}")
+        ]
+    }, 
+    "variable":{
+        "title":Text ("""
+Work from a 
+Variable Force"""), 
+        "notes":[
+            MathTex (r"W=\int_a^b f(x) dx")
+        ], 
+        "content":[
+            Text ("""
+When a particle is located a distance 
+x feet from the origin, a force of x2+2x pounds acts on it. 
+How much work is done in moving it from x=1 to x=3?""", t2s={'x':ITALIC}), 
+            MathTex (r"W=\int_1^3 (x^2+2x) dx=\left.(\frac{1}{3}x^3+x^2)\right|_1^3=\frac{50}{3} \textrm{lb-ft}")
+        ]
+    }, 
+    "spring":{
+        "title":Text ("Work from a Spring"), 
+        "notes":[
+            MathTex ("f(x)=kx")
+        ], 
+        "content":[
+            Text ("""
+A force of 40 N is required to hold a spring 
+that has been stretched from its natural length 
+of 10 cm to a length of 15 cm. 
+How much work is done in stretching the spring 
+from 15 cm to 18 cm?"""), 
+            MathTex (r"10 \textrm{cm}=0.1 \textrm{m}, 15 \textrm{cm}=0.15 \textrm{m}, x=0.05 \textrm{m}"), 
+            MathTex (r"f(0.05)=40, 0.05k=40, k=800"), 
+            MathTex (r"f(x)=800x"), 
+            MathTex (r"W=\int_{0.05}^{0.08} (800x) dx=\left.400x^2\right|_{0.05}^{0.08}=1.56 \textrm{J}") # > 100 cols
+        ]
+    }
+}
+
+def render_example(scene : Scene, id : str):
+    data = example_data[id]
+    title = data["title"]
+    start = [Write (title.to_edge(UP))]
+    notes = data["notes"]
+    notes_len = len(data["notes"])
+    for i in range(notes_len):
+        note = notes[i]
+        if i == 0:
+            note.set(font_size=48).to_edge(UP).to_edge(RIGHT)
+        else:
+            note.set(font_size=48).next_to(notes[i - 1], DOWN)
+        start.append(Write (note))
+    scene.play(*start)
+    bottom = title
+    isTitle = True
+    content = data["content"]
+    for thing in content:
+        if type(thing) == Text:
+            thing.set(font_size=24)
+        elif type(thing) == MathTex:
+            thing.set(font_size=48)
+        if isTitle:
+            thing.next_to(bottom, 5 * DOWN)
+            isTitle = False
+        else:
+            thing.next_to(bottom, DOWN)
+        scene.play(Write (thing))
+        scene.wait(1)
+        bottom = thing
+    FadeOutAll(scene)
+
 class Example_Work_Gravity(Scene):
     def construct(self):
-        title     = Text ("Example - Work from Gravity").move_to(3 * UP)
-        self.play(Write(title), runtime=1)
+        render_example(self, "gravity")
 
-        problem_1 = Text ("""
-How much work is done in lifting a 1.2 kg book off the floor 
-to put it on a desk that is 0.7 m high? 
-The acceleration due to gravity is g = 9.8 (m/s²).""", font_size=24, t2s={'[138:139]':ITALIC})
-        problem_1.next_to(title, 1.5 * DOWN)
-        self.play(Write(problem_1))
-        self.wait(1)
-        eq_1 = r"F=mg=(1.2)(9.8)=11.76 \textrm{N}"
-        eq_2 = r"W=Fd=(11.76)(0.7)\approx8.2 \textrm{J}"
-        solution_1 = MathTex (eq_1).add(MathTex (eq_2).move_to(DOWN))
-        solution_1.next_to(problem_1, DOWN)
-        self.play(Write(solution_1))
-        self.wait(1)
-        sol_1 = MathTex (eq_1 + ", " + eq_2).next_to(problem_1, DOWN)
-        self.play(TransformMatchingTex(solution_1, sol_1))
+class Example_Variable_Force(Scene):
+    def construct(self):
+        render_example(self, "variable")
 
-        problem_2 = Text ("How much work is done in lifting a 20 lb weight 6 ft off the ground?", font_size=24).next_to(sol_1, 2 * DOWN)
-        self.play(Write(problem_2))
-        self.wait(1)
-        eq_1 = r"F=20 \textrm{lb}"
-        eq_2 = r"W=(20)(6)=120 \textrm{lb-ft}\approx163.2 \textrm{J}"
-        solution_2 = MathTex (eq_1).add(MathTex (eq_2).move_to(DOWN))
-        solution_2.next_to(problem_2, DOWN)
-        self.play(Write(solution_2))
-        self.wait(1)
-        sol_2 = MathTex (eq_1 + ", " + eq_2).next_to(problem_2, DOWN)
-        self.play(TransformMatchingTex(solution_2, sol_2))
-        self.wait(1)
-
-        FadeOutAll(self)
+class Example_Spring(Scene):
+    def construct(self):
+        render_example(self, "spring")
