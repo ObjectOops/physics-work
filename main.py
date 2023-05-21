@@ -230,6 +230,21 @@ from 15 cm to 18 cm?"""),
             MathTex (r"f(x)=800x"), 
             MathTex (r"W=\int_{0.05}^{0.08} (800x) dx=\left.400x^2\right|_{0.05}^{0.08}=1.56 \textrm{J}") # > 100 cols
         ]
+    }, 
+    "extra":{
+        "title":Text ("Extra Example"), 
+        "notes":[], 
+        "content":[
+            Text ("""
+A 200 lb cable is 100 ft long and hangs vertically 
+from the top of a tall building. 
+How much work is required to lift the cable to the top of the building?"""), 
+            Text ("""
+- Each ft. of cable weighs 2 lb.
+- The weight of a specific point on the cable can be expressed as 2dx.
+- The distance each point travels increases with x.""", t2s={'[100:102]':ITALIC, 'x':ITALIC}), 
+            MathTex (r"W=\int_{0}^{100} (2x) dx=\left.x^2\right|_{0}^{100}=10,000 \textrm{lb-ft}")
+        ]
     }
 }
 
@@ -276,3 +291,18 @@ class Example_Variable_Force(Scene):
 class Example_Spring(Scene):
     def construct(self):
         render_example(self, "spring")
+
+class Example_Extra(Scene):
+    def construct(self):
+        render_example(self, "extra")
+
+class Homefun(Scene):
+    def construct(self):
+        title = Text ("Homefuns")
+        self.play(Write(title))
+        self.play(title.animate.to_edge(UP))
+        fun       = Text ("""
+Page 458: #1, 2,  3,  7,  9, 12
+Extras: #4, 8, 11, 13, 16, 20
+    (Take a look at example 5 in the textbook for hints for #20.)""", font_size=24)
+        self.play(Write(fun))
