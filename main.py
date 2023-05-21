@@ -127,7 +127,7 @@ class Hookes_Law(Scene):
     def construct(self):
         title = Text ("Hooke's Law")
         self.play(Write(title))
-        self.play(title.animate.shift(3 * UP))
+        self.play(title.animate.to_edge(UP))
         definition = Text ("""
 The force needed to extend or compress 
 a spring by some distance scales linearly 
@@ -139,36 +139,41 @@ The force needed to extend or compress a spring by some distance
 scales linearly with respect to that distance.""", font_size=24, slant=ITALIC).next_to(title, DOWN)
         self.play(Transform(definition, definition_up))
 
-        f_kx = MathTex ("f(x)=kx", font_size=128).add(Text ("""
+        f_kx    = MathTex ("f(x)=kx", font_size=128)
+        caption = Text ("""
 The force required to maintain 
 a spring stretched x units 
-beyond its natural length.""", t2s={'x':ITALIC}).move_to(2 * DOWN))
+beyond its natural length.""", t2s={'x':ITALIC}).next_to(f_kx, DOWN)
         self.play(Write(f_kx))
         self.wait(1)
 
         self.play(FadeOut(f_kx))
         eqs = [
-            MathTex ("f(0)",   "=", "32", "*", "|0|",   "=", "0"), 
-            MathTex ("f(10)",  "=", "32", "*", "|10|",  "=", "320"), 
-            MathTex ("f(-10)", "=", "32", "*", "|-10|", "=", "320")
+            MathTex ("f(", "0",   ")", "=", "8",  "*",   "0", "=", "0"), 
+            MathTex ("f(", "10",  ")", "=", "16", "*",  "10", "=", "160"), 
+            MathTex ("f(", "-10", ")", "=", "32", "*", "-10", "=", "-320")
         ]
         springs = [
             ImageMobject ("springs/Spring.png", z_index=-100), 
             ImageMobject ("springs/SpringEx.png", z_index=-100), 
             ImageMobject ("springs/SpringCmp.png", z_index=-100)
         ]
-        for i in eqs: i.move_to(UP)
-        for i in springs: i.move_to(DOWN)
+        for i in springs: i.move_to(1.5 * DOWN)
         self.play(Write(eqs[0]), SpiralIn(springs[0]))
         self.wait(0.5)
         self.play(TransformMatchingTex(eqs[0], eqs[1]), Transform(springs[0], springs[1]))
         self.wait(0.5)
-        self.play(TransformMatchingTex(eqs[1], eqs[2]), Transform(springs[1], springs[2]))
+        self.play(TransformMatchingTex(eqs[1], eqs[2]), Transform(springs[0], springs[2]))
         self.wait(1)
-        self.play(FadeOut(eqs[2]), FadeIn(f_kx), FadeOut(springs[0], springs[1], springs[2]))
+        self.play(FadeOut(eqs[2]), springs[0].animate.shift(10 * LEFT), FadeIn(f_kx))
 
-        self.play(f_kx.animate.scale(0.5).shift(UP))
-        note = Text ("Note: k is the spring constant, which varies depending on the spring.", font_size=24, t2s={'k':ITALIC}).move_to(2 * DOWN)
+        self.play(f_kx.animate.scale(0.5).next_to(definition_up, DOWN))
+        note = Text ("""
+Note: k is the spring constant, which varies depending on the spring, 
+and is always positive.""", 
+            font_size=24, 
+            t2s={'k':ITALIC}
+        )
         self.play(Write(note))
         self.wait(1)
 
