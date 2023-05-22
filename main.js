@@ -11,3 +11,21 @@ function checkAutoPause() {
 }
 
 video.addEventListener("timeupdate", checkAutoPause);
+
+video.addEventListener("mouseenter", function() {
+    video.controls = true;
+});
+video.addEventListener("mouseleave", function() {
+    video.controls = false;
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    }
+});

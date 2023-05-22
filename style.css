@@ -9,9 +9,3 @@ body {
     height: 90%;
     outline: none;
 }
-#physics-work::-webkit-media-controls {
-    display: none;
-}
-#physics-work:hover::-webkit-media-controls {
-    display: block;
-}
