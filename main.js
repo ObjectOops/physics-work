@@ -1,6 +1,6 @@
 var video = document.getElementById("physics-work");
 
-const pauseTimes = [2, 8, 17, 21, 27, 31, 35, 37, 43, 46, 49, 51, 57, 63, 69, 72, 78, 83, 86, 92, 102, 108, 114];
+const pauseTimes = [2, 8, 17, 21, 27, 31, 35, 37, 43, 46, 49, 51, 57, 63, 69, 72, 77, 83, 86, 92, 103, 108, 114];
 
 function checkAutoPause() {
     var currentSecond = Math.floor(video.currentTime);
