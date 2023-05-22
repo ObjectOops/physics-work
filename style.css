@@ -9,3 +9,6 @@ body {
     height: 90%;
     outline: none;
 }
+#physics-work::-webkit-media-controls {
+    display: none;
+}
