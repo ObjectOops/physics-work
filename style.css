@@ -1,0 +1,10 @@
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+}
+#physics-work {
+    height: 90%;
+}
