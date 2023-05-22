@@ -12,3 +12,6 @@ body {
 #physics-work::-webkit-media-controls {
     display: none;
 }
+#physics-work:hover::-webkit-media-controls {
+    display: block;
+}
