@@ -1,5 +1,7 @@
 var video = document.getElementById("physics-work");
 
+alert(video)
+
 const pauseTimes = [10, 20, 30];
 
 function checkAutoPause() {
@@ -9,4 +11,6 @@ function checkAutoPause() {
     }
 }
 
-video.addEventListener("timeupdate", checkAutoPause);
+video.addEventListener("loadedmetadata", function() {
+    video.addEventListener("timeupdate", checkAutoPause);
+});
