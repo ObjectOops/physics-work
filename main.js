@@ -20,7 +20,7 @@ video.addEventListener("mouseleave", function() {
 });
 
 document.addEventListener('keydown', function(event) {
-    if (event.keyCode === 32) {
+    if (event.key === ' ') {
         event.preventDefault();
         if (video.paused) {
             video.play();
