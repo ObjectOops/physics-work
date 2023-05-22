@@ -1,1 +1,1 @@
-exclude: ['main.py', 'feasibility_test.py', 'Gemfile', 'Gemfile.lock', 'LICENSE', 'README.md']
+exclude: ['main.py', 'feasibility_test.py', 'Gemfile', 'Gemfile.lock', 'LICENSE', 'README.md', 'media/', 'springs/', 'concat.sh', 'videos.txt']
