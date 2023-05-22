@@ -1,6 +1,6 @@
 var video = document.getElementById("physics-work");
 
-const pauseTimes = [10, 20, 30];
+const pauseTimes = [2, 8, 17, 21, 27, 31, 35, 37, 43, 46, 49, 50, 51, 57, 63, 69, 72, 78, 83, 86, 92, 102, 108, 114];
 
 function checkAutoPause() {
     var currentSecond = Math.floor(video.currentTime);
@@ -21,7 +21,7 @@ video.addEventListener("mouseleave", function() {
 
 document.addEventListener('keydown', function(event) {
     if (event.keyCode === 32) {
-      event.preventDefault();
+        event.preventDefault();
         if (video.paused) {
             video.play();
         } else {
