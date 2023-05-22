@@ -11,10 +11,3 @@ function checkAutoPause() {
 }
 
 video.addEventListener("timeupdate", checkAutoPause);
-
-video.addEventListener("mouseenter", function() {
-    video.controls = true;
-});
-video.addEventListener("mouseleave", function() {
-    video.controls = false;
-});
